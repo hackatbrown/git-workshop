@@ -1,0 +1,25 @@
+:root {
+  color-scheme: light;
+  --paper: #fffaf2;
+  --ink: #30261f;
+  --accent: #7b3822;
+  --line: #dac7b3;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Georgia, serif;
+  line-height: 1.65;
+}
+header, main, footer { max-width: 64rem; margin: auto; padding: 2rem; }
+header { border-bottom: 1px solid var(--line); }
+.brand { font-size: 1.5rem; font-weight: bold; margin: 0 0 1rem; }
+h1 { font-size: 3rem; line-height: 1.15; }
+h2 { line-height: 1.25; }
+a { color: var(--accent); text-underline-offset: 0.2em; }
+nav { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+section { margin-block: 2.5rem; }
+footer { border-top: 1px solid var(--line); font-size: 0.9rem; }
