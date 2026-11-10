@@ -54,3 +54,35 @@ The café and events are fictional. All seed commits were created for this
 workshop; the history is intentionally a sequence of small, readable changes.
 Have pairs edit the same menu or opening-hours line for repeatable conflicts.
 Participants should practice history rewriting on their own branches.
+
+## Explore the prepared branch graph
+
+Fetch all the workshop branches and show their history:
+
+```sh
+git fetch origin
+git log --graph --oneline --all --decorate
+```
+
+Use `--all` to include the unmerged practice branches. Two sample PRs have
+already been merged using merge commits; four remain open for exercises.
+
+| Branch | PR | Exercise |
+| --- | --- | --- |
+| `cytang/seasonal-menu` | [#1](https://github.com/hackatbrown/git-workshop/pull/1) | Inspect a merged three-commit feature |
+| `cytang/community-events` | [#2](https://github.com/hackatbrown/git-workshop/pull/2) | Compare independent branches merged into main |
+| `cytang/decaf-menu` | [#3](https://github.com/hackatbrown/git-workshop/pull/3) | Resolve the intentional menu conflict, keeping both new drinks |
+| `cytang/evening-hours` | [#4](https://github.com/hackatbrown/git-workshop/pull/4) | Review changes and squash two commits on a personal branch |
+| `cytang/autumn-palette` | [#5](https://github.com/hackatbrown/git-workshop/pull/5) | Rebase an older branch and review print styles |
+| `cytang/workshop-faq` | [#6](https://github.com/hackatbrown/git-workshop/pull/6) | Practice a documentation review |
+
+Create a personal branch from a remote practice branch before experimenting:
+
+```sh
+git switch -c your-name/decaf-practice origin/cytang/decaf-menu
+git rebase origin/main
+```
+
+For the decaf conflict, edit `menu.html` to keep both seasonal and decaf items,
+remove the conflict markers, run `git add menu.html`, then `git rebase --continue`.
+`git rebase --abort` returns you to the state before the rebase.
