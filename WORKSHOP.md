@@ -64,8 +64,8 @@ git fetch origin
 git log --graph --oneline --all --decorate
 ```
 
-Use `--all` to include the unmerged practice branches. Two sample PRs have
-already been merged using merge commits; four remain open for exercises.
+Use `--all` to include the unmerged practice branches. In the original batch, two sample PRs were
+merged using merge commits and four were left open for exercises.
 
 | Branch | PR | Exercise |
 | --- | --- | --- |
@@ -86,3 +86,54 @@ git rebase origin/main
 For the decaf conflict, edit `menu.html` to keep both seasonal and decaf items,
 remove the conflict markers, run `git add menu.html`, then `git rebase --continue`.
 `git rebase --abort` returns you to the state before the rebase.
+
+## Compare merge strategies and stacked work
+
+A second batch adds completed examples of squash merges, rebase merges, and
+nested merges. Source branches are retained, including the pre-rebase takeaway
+branch. Fetch before exploring:
+
+```sh
+git fetch origin
+git log --graph --oneline --all --decorate
+```
+
+| PR | History example | What to inspect |
+| --- | --- | --- |
+| [#7](https://github.com/hackatbrown/git-workshop/pull/7) | Squash merge | Three bakery edits become one commit on main |
+| [#8](https://github.com/hackatbrown/git-workshop/pull/8) | Squash merge | Three welcome revisions become one commit on main |
+| [#9](https://github.com/hackatbrown/git-workshop/pull/9) | Branch rebase, then rebase merge | Compare the preserved before-rebase branch, rewritten branch, and main |
+| [#10](https://github.com/hackatbrown/git-workshop/pull/10) | Rebase merge | Original visitor-guide commits have new copies on main |
+| [#11](https://github.com/hackatbrown/git-workshop/pull/11) | Stack parent, merged | The group-visit commits are shared by main and the child branch |
+| [#12](https://github.com/hackatbrown/git-workshop/pull/12) | Stack child, open | Originally based on the parent branch; now targets main with two checklist commits |
+| [#13](https://github.com/hackatbrown/git-workshop/pull/13) | Nested merge | The feature branch merged main before its own PR merge |
+
+### Compare a rebase with range-diff
+
+This command compares the takeaway patches before and after rebasing. An equals
+sign means the patch stayed the same even though its commit ID changed.
+
+```sh
+git range-diff 1c7f368..origin/cytang/rebase-takeaway-before f26d392..origin/cytang/rebase-takeaway
+```
+
+### Distinguish a squash from a merge
+
+Inspect `git log --oneline origin/cytang/squash-snacks` and compare the source
+commits with the single commit linked from PR #7. The original source commits
+are not ancestors of main even though their final changes are present there.
+A rebase merge similarly leaves original commit IDs off main, but preserves a
+separate replacement commit for each patch rather than collapsing them.
+
+### Follow a merge inside a merge
+
+Find the merge for PR #13 in the graph. Follow its feature-side parent until you
+reach `Merge main into volunteer board to pick up café updates`. That inner
+commit has two parents too. Compare `git log --first-parent main` with the full
+graph to see how first-parent history hides the feature branch's internal work.
+
+### Inspect the remaining stack child
+
+PR #12 is open. Its parent PR #11 is already merged. Compare the original stack
+with `git log --graph --oneline origin/cytang/group-visits origin/cytang/group-checklist`
+and inspect its current diff with `git diff origin/main...origin/cytang/group-checklist`.
