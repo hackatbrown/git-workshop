@@ -1,8 +1,8 @@
 :root {
   color-scheme: light;
-  --paper: #fffaf2;
+  --paper: #fff6e8;
   --ink: #30261f;
-  --accent: #7b3822;
+  --accent: #843c24;
   --line: #dac7b3;
 }
 
@@ -39,3 +39,11 @@ a:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
 nav a[aria-current="page"] { font-weight: bold; }
 .skip-link { position: absolute; left: 1rem; top: -10rem; padding: 0.75rem; background: var(--paper); }
 .skip-link:focus { top: 1rem; }
+
+/* Keep printed menus compact and ink friendly. */
+@media print {
+  body { background: white; color: black; }
+  header, main, footer { max-width: none; padding: 0.5rem; }
+  nav, .skip-link { display: none; }
+  a { color: black; }
+}
