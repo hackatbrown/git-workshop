@@ -15,3 +15,4 @@ Keep the aisle clear and leave a few seats available for neighbors dropping in.
 - Pick a meeting time and tell your group.
 - Check the café opening hours.
 - Ask the counter team before rearranging seats.
+- Return chairs to their original places before leaving.
